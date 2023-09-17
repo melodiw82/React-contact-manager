@@ -1,3 +1,5 @@
+import { PURPLE } from "../../helpers/colors";
+
 const SearchContact = () => {
   return (
     <>
@@ -5,16 +7,15 @@ const SearchContact = () => {
         <span
           className="input-group-text"
           id="basic-addon1"
-          style={{ backgroundColor: "pink" }}
+          style={{ backgroundColor: PURPLE }}
         >
           <i className="fa fa-search" />
         </span>
         <input
           type="text"
           dir="rtl"
-          style={{ backgroundColor: "gray", borderColor: "pink" }}
           className="form-control"
-          placeholder="جستجو مخاطب"
+          placeholder="جستجوی مخاطب"
           aria-label="Search"
           aria-describedby="basic-addon1"
         />

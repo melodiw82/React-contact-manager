@@ -4,12 +4,13 @@ import Contacts from "./components/contact/Contacts";
 
 function App() {
   const [contacts, setConatacts] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   return (
     <>
       <Navbar />
 
-      <Contacts contacts={contacts} />
+      <Contacts contacts={contacts} loading={loading} />
     </>
   );
 }

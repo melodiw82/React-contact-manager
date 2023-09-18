@@ -8,8 +8,9 @@ import {
 } from "../../helpers/colors";
 import Contact from "./Contact";
 import NOtFound from "../../assets/no-found.gif";
+import Spinner from "../Spinner";
 
-const Contacts = ({ contacts }) => {
+const Contacts = ({ contacts, loading }) => {
   return (
     <>
       <section className="container">
@@ -27,25 +28,29 @@ const Contacts = ({ contacts }) => {
         </div>
       </section>
 
-      <section className="container">
-        <div className="row">
-          {contacts.length > 0 ? (
-            contacts.map((contact) => (
-              <Contact key={contact.id} contact={contact} />
-            ))
-          ) : (
-            <div
-              className="text-center py-4 rounded"
-              style={{ backgroundColor: CURRENTLINE }}
-            >
-              <p className="h3" style={{ color: ORANGE }}>
-                مخاطب یافت نشد...
-              </p>
-              <img src={NOtFound} className="w-25" alt="پیدا نشد" />
-            </div>
-          )}
-        </div>
-      </section>
+      {loading ? (
+        <Spinner />
+      ) : (
+        <section className="container">
+          <div className="row">
+            {contacts.length > 0 ? (
+              contacts.map((contact) => (
+                <Contact key={contact.id} contact={contact} />
+              ))
+            ) : (
+              <div
+                className="text-center py-4 rounded"
+                style={{ backgroundColor: CURRENTLINE }}
+              >
+                <p className="h3" style={{ color: ORANGE }}>
+                  مخاطب یافت نشد...
+                </p>
+                <img src={NOtFound} className="w-25" alt="پیدا نشد" />
+              </div>
+            )}
+          </div>
+        </section>
+      )}
     </>
   );
 };

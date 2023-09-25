@@ -1,11 +1,4 @@
-import {
-  CURRENTLINE,
-  CYAN,
-  ORANGE,
-  PINK,
-  PURPLE,
-  RED,
-} from "../../helpers/colors";
+import { CURRENTLINE, ORANGE, PINK } from "../../helpers/colors";
 import Contact from "./Contact";
 import NOtFound from "../../assets/no-found.gif";
 import Spinner from "../Spinner";

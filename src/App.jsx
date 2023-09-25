@@ -10,6 +10,8 @@ import {
   ViewContact,
 } from "./components";
 
+import { getAllContacts, getAllGroups } from "./services/contactService";
+
 function App() {
   const [loading, setLoading] = useState(false);
   const [contacts, setConatacts] = useState([]);
@@ -22,12 +24,8 @@ function App() {
       try {
         setLoading(true);
 
-        const { data: contactsData } = await axios.get(
-          "http://localhost:9000/contacts"
-        );
-        const { data: groupsData } = await axios.get(
-          "http://localhost:9000/groups"
-        );
+        const { data: contactsData } = await getAllContacts();
+        const { data: groupsData } = await getAllGroups();
 
         setConatacts(contactsData);
         setGroups(groupsData);

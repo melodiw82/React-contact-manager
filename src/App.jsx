@@ -114,7 +114,11 @@ function App() {
             />
           }
         />
-        <Route path="/contacts/:contactId" element={<ViewContact />} />
+        <Route
+          path="/contacts/:contactId"
+          element={<ViewContact />}
+          loading={loading}
+        />
         <Route path="/conatcts/edit/:contactId" element={<EditContact />} />
       </Routes>
     </>

@@ -4,10 +4,10 @@ import NOtFound from "../../assets/no-found.gif";
 import Spinner from "../Spinner";
 import { Link } from "react-router-dom";
 
-const Contacts = ({ contacts, loading }) => {
+const Contacts = ({ contacts, loading, confirmDelete }) => {
   return (
     <>
-     <section className="container">
+      <section className="container">
         <div className="grid">
           <div className="row">
             <div className="col">
@@ -33,7 +33,13 @@ const Contacts = ({ contacts, loading }) => {
           <div className="row">
             {contacts.length > 0 ? (
               contacts.map((contact) => (
-                <Contact key={contact.id} contact={contact} />
+                <Contact
+                  key={contact.id}
+                  contact={contact}
+                  confirmDelete={() => {
+                    confirmDelete(contact.id, contact.fullname);
+                  }}
+                />
               ))
             ) : (
               <div

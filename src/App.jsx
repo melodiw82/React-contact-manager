@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { Routes, Route, Navigate, useNavigate } from "react-router-dom";
+import { confirmAlert } from "react-confirm-alert";
 
 import {
   AddContacts,
@@ -13,7 +14,15 @@ import {
   createContact,
   getAllContacts,
   getAllGroups,
+  deleteContact,
 } from "./services/contactService";
+import {
+  COMMENT,
+  CURRENTLINE,
+  FOREGROUND,
+  PURPLE,
+  YELLOW,
+} from "./helpers/colors";
 
 function App() {
   const [loading, setLoading] = useState(false);
@@ -93,6 +102,63 @@ function App() {
     setConatact({ ...contact, [event.target.name]: event.target.value });
   };
 
+  const confirm = (contactId, contactFullname) => {
+    confirmAlert({
+      customUI: ({ onClose }) => {
+        return (
+          <div
+            dir="rtl"
+            style={{
+              backgroundColor: CURRENTLINE,
+              border: `1px solid ${PURPLE}`,
+              borderRadius: "1em",
+            }}
+            className="p-4"
+          >
+            <h1 style={{ color: YELLOW }}>پاک کردن مخاطب</h1>
+            <p style={{ color: FOREGROUND }}>
+              از پاک کردن مخاطب {contactFullname} اطمینان داری؟
+            </p>
+
+            <button
+              onClick={() => {
+                removeContact(contactId);
+                onClose();
+              }}
+              className="btn mx-2"
+              style={{ backgroundColor: PURPLE }}
+            >
+              حذف کن
+            </button>
+
+            <button
+              onClick={onClose}
+              className="btn"
+              style={{ backgroundColor: COMMENT }}
+            >
+              انصراف
+            </button>
+          </div>
+        );
+      },
+    });
+  };
+
+  const removeContact = async (contactId) => {
+    try {
+      setLoading(true);
+      const response = await deleteContact(contactId);
+      if (response) {
+        const { data: contactData } = await getAllContacts();
+        setConatacts(contactData);
+        setLoading(false);
+      }
+    } catch (err) {
+      console.log(err.message);
+      setLoading(false);
+    }
+  };
+
   return (
     <>
       <Navbar />
@@ -100,7 +166,13 @@ function App() {
         <Route path="/" element={<Navigate to="/contacts" />} />
         <Route
           path="/contacts"
-          element={<Contacts contacts={contacts} loading={loading} />}
+          element={
+            <Contacts
+              contacts={contacts}
+              loading={loading}
+              confirmDelete={confirm}
+            />
+          }
         />
         <Route
           path="contacts/add"

@@ -48,7 +48,9 @@ function App() {
     fetchData();
   }, []);
 
-  
+  const setContactInfo = (event) => {
+    setConatact({ ...contact, [event.target.name]: event.target.value });
+  };
 
   return (
     <>
@@ -61,7 +63,14 @@ function App() {
         />
         <Route
           path="contacts/add"
-          element={<AddContacts loading={loading} groups={groups} />}
+          element={
+            <AddContacts
+              loading={loading}
+              groups={groups}
+              setContactInfo={setContactInfo}
+              contact={contact}
+            />
+          }
         />
         <Route path="/contacts/:contactId" element={<ViewContact />} />
         <Route path="/conatcts/edit/:contactId" element={<EditContact />} />

@@ -4,7 +4,7 @@ import { Spinner } from "../";
 import { GREEN, PURPLE, COMMENT } from "../../helpers/colors";
 import NOTE_IMG from "../../assets/man-taking-note.png";
 
-const AddContacts = ({ loading, groups }) => {
+const AddContacts = ({ loading, groups, contact, setContactInfo, createContactForm }) => {
   return (
     <>
       {loading ? (
@@ -39,7 +39,7 @@ const AddContacts = ({ loading, groups }) => {
             <hr style={{ backgroundColor: GREEN }} />
             <div className="row mt-5">
               <div className="col-md-4">
-                <form>
+                <form onSubmit={createContactForm}>
                   <div className="mb-2">
                     <input
                       type="text"
@@ -47,6 +47,8 @@ const AddContacts = ({ loading, groups }) => {
                       name="fullname"
                       placeholder="نام و نام خانوادگی"
                       required={true}
+                      value={contact.fullname}
+                      onChange={setContactInfo}
                     />
                   </div>
                   <div className="mb-2">
@@ -56,6 +58,8 @@ const AddContacts = ({ loading, groups }) => {
                       name="photo"
                       placeholder="آدرس تصویر"
                       required={true}
+                      value={contact.photo}
+                      onChange={setContactInfo}
                     />
                   </div>
                   <div className="mb-2">
@@ -65,6 +69,8 @@ const AddContacts = ({ loading, groups }) => {
                       name="mobile"
                       placeholder="شماره موبایل"
                       required={true}
+                      value={contact.mobile}
+                      onChange={setContactInfo}
                     />
                   </div>
                   <div className="mb-2">
@@ -74,6 +80,8 @@ const AddContacts = ({ loading, groups }) => {
                       name="email"
                       placeholder="آدرس ایمیل"
                       required={true}
+                      value={contact.email}
+                      onChange={setContactInfo}
                     />
                   </div>
                   <div className="mb-2">
@@ -83,6 +91,8 @@ const AddContacts = ({ loading, groups }) => {
                       name="job"
                       placeholder="شغل"
                       required={true}
+                      value={contact.job}
+                      onChange={setContactInfo}
                     />
                   </div>
                   <div className="mb-2">
@@ -90,12 +100,16 @@ const AddContacts = ({ loading, groups }) => {
                       name="group"
                       required={true}
                       className="form-control"
+                      value={contact.group}
+                      onChange={setContactInfo}
                     >
-                      {groups.map((group) => {
-                        <option value="group" key={group}>
-                          {group.name}
-                        </option>;
-                      })}
+                      <option value="">انتخاب گروه</option>
+                      {groups.length > 0 &&
+                        groups.map((group) => (
+                          <option key={group.id} value={group.id}>
+                            {group.name}
+                          </option>
+                        ))}
                     </select>
                   </div>
                   <div className="mx-2">

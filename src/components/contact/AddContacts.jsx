@@ -4,7 +4,13 @@ import { Spinner } from "../";
 import { GREEN, PURPLE, COMMENT } from "../../helpers/colors";
 import NOTE_IMG from "../../assets/man-taking-note.png";
 
-const AddContacts = ({ loading, groups, contact, setContactInfo, createContactForm }) => {
+const AddContacts = ({
+  loading,
+  groups,
+  contact,
+  setContactInfo,
+  createContactForm,
+}) => {
   return (
     <>
       {loading ? (

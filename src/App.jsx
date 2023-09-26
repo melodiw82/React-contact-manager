@@ -61,10 +61,7 @@ function App() {
         setLoading(true);
 
         const { data: contactsData } = await getAllContacts();
-        const { data: groupsData } = await getAllGroups();
-
         setConatacts(contactsData);
-        setGroups(groupsData);
 
         setLoading(false);
       } catch (err) {

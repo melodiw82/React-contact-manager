@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Routes, Route, Navigate } from "react-router-dom";
+import { Routes, Route, Navigate, useNavigate } from "react-router-dom";
 
 import {
   AddContacts,
@@ -9,7 +9,11 @@ import {
   ViewContact,
 } from "./components";
 
-import { getAllContacts, getAllGroups } from "./services/contactService";
+import {
+  createContact,
+  getAllContacts,
+  getAllGroups,
+} from "./services/contactService";
 
 function App() {
   const [loading, setLoading] = useState(false);
@@ -24,6 +28,8 @@ function App() {
     job: "",
     group: "",
   });
+
+  const navigate = useNavigate();
 
   // hooks cannot be async, await
   // you need to declare a function for that
@@ -48,6 +54,21 @@ function App() {
     fetchData();
   }, []);
 
+  const createContactForm = async (event) => {
+    event.preventDefault();
+
+    try {
+      const { status } = await createContact(contact);
+
+      if (status === 201) {
+        setConatact({});
+        navigate("/contacts");
+      }
+    } catch (err) {
+      console.log(err.message);
+    }
+  };
+
   const setContactInfo = (event) => {
     setConatact({ ...contact, [event.target.name]: event.target.value });
   };
@@ -69,6 +90,7 @@ function App() {
               groups={groups}
               setContactInfo={setContactInfo}
               contact={contact}
+              createContactForm={createContactForm}
             />
           }
         />

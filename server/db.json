@@ -6,7 +6,9 @@
       "mobile": "09361112244",
       "email": "z.rafiei.82@gmail.com",
       "job": "برنامه نویس",
-      "group": "3",
+      "group": [
+        "2"
+      ],
       "id": 1
     },
     {

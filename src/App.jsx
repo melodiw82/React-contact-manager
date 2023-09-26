@@ -119,7 +119,15 @@ function App() {
           element={<ViewContact />}
           loading={loading}
         />
-        <Route path="/contacts/edit/:contactId" element={<EditContact />} />
+        <Route
+          path="/contacts/edit/:contactId"
+          element={
+            <EditContact
+              forceRender={forceRender}
+              setForceRender={setForceRender}
+            />
+          }
+        />
       </Routes>
     </>
   );

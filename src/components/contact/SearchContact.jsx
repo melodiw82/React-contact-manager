@@ -1,6 +1,6 @@
 import { PURPLE } from "../../helpers/colors";
 
-const SearchContact = () => {
+const SearchContact = ({ query, search }) => {
   return (
     <>
       <div className="input-group mx-2 w-75" dir="ltr">
@@ -18,6 +18,8 @@ const SearchContact = () => {
           placeholder="جستجوی مخاطب"
           aria-label="Search"
           aria-describedby="basic-addon1"
+          value={query.text}
+          onChange={search}
         />
       </div>
     </>

@@ -1,7 +1,7 @@
 import SearchContact from "./contact/SearchContact";
 import { PURPLE, BACKGROUND } from "../helpers/colors";
 
-const Navbar = () => {
+const Navbar = ({ query, search }) => {
   return (
     <nav
       className="navbar navbar-dark navbar-expand-sm shadow-lg"
@@ -16,7 +16,8 @@ const Navbar = () => {
             </div>
           </div>
           <div className="col">
-            <SearchContact />
+            {/* prop drailing */}
+            <SearchContact query={query} search={search} />
           </div>
         </div>
       </div>

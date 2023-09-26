@@ -29,6 +29,7 @@ function App() {
   const [forceRender, setForceRender] = useState(false);
   const [contacts, setConatacts] = useState([]);
   const [groups, setGroups] = useState([]);
+  const [filteredContacts, setFilteredContacts] = useState([]);
   const [contact, setConatact] = useState({
     // to avoid writing form validation for each one
     fullname: "",
@@ -40,6 +41,7 @@ function App() {
   });
 
   const navigate = useNavigate();
+  const [query, setQuery] = useState({ text: "" });
 
   // hooks cannot be async, await
   // you need to declare a function for that
@@ -52,6 +54,7 @@ function App() {
         const { data: groupsData } = await getAllGroups();
 
         setConatacts(contactsData);
+        setFilteredContacts(contactsData);
         setGroups(groupsData);
 
         setLoading(false);
@@ -159,16 +162,29 @@ function App() {
     }
   };
 
+  // implementing search using .filter()
+  const contactSearch = (event) => {
+    setQuery({ ...query, text: event.target.value });
+    const allContacts = contacts.filter((contact) => {
+      // return cause it's multiple lines
+      return contact.fullname
+        .toLowerCase()
+        .includes(event.target.value.toLowerCase());
+    });
+
+    setFilteredContacts(allContacts);
+  };
+
   return (
     <>
-      <Navbar />
+      <Navbar query={query} search={contactSearch} />
       <Routes>
         <Route path="/" element={<Navigate to="/contacts" />} />
         <Route
           path="/contacts"
           element={
             <Contacts
-              contacts={contacts}
+              contacts={filteredContacts}
               loading={loading}
               confirmDelete={confirm}
             />

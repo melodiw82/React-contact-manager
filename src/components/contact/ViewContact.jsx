@@ -1,5 +1,5 @@
 const ViewContact = () => {
-  return <div></div>;
+  return <></>;
 };
 
 export default ViewContact;
